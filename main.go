@@ -1,12 +1,16 @@
 package main
 
 import (
+	"be_starter/auth"
+	"be_starter/handler"
+	"be_starter/helper"
 	"be_starter/user"
 	"log"
 	"net/http"
 	"os"
 	"strings"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
@@ -27,6 +31,7 @@ func main() {
 	userRepository:= user.NewRepository(db)
 
 	userService := user.NewService(userRepository)
+	authService := auth.NewService()
 
 	userHandler := handler.NewUserHandler(userService, authService)
 
